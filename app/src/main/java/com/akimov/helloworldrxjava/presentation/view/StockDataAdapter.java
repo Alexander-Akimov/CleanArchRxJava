@@ -17,64 +17,65 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StockDataAdapter extends RecyclerView.Adapter<StockDataAdapter.StockUpdateViewHolder> {
-    private final List<StockUpdate> stockList = new ArrayList<>();
+  private final List<StockUpdate> stockList = new ArrayList<>();
 
-    @NonNull
-    @Override
-    public StockUpdateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.stock_update_item, parent, false);
-        StockUpdateViewHolder vh = new StockUpdateViewHolder(v);
-        return vh;
-    }
+  @NonNull
+  @Override
+  public StockUpdateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    View v = LayoutInflater.from(parent.getContext())
+        .inflate(R.layout.stock_update_item, parent, false);
+    StockUpdateViewHolder vh = new StockUpdateViewHolder(v);
+    return vh;
+  }
 
-    @Override
-    public void onBindViewHolder(@NonNull StockUpdateViewHolder holder, int position) {
-        StockUpdate stockUpdate = stockList.get(position);
+  @Override
+  public void onBindViewHolder(@NonNull StockUpdateViewHolder holder, int position) {
+    StockUpdate stockUpdate = stockList.get(position);
 
-        holder.setStockSymbol(stockUpdate);
-    }
+    holder.setStockSymbol(stockUpdate);
+  }
 
-    @Override
-    public int getItemCount() {
-        return stockList.size();
-    }
+  @Override
+  public int getItemCount() {
+    return stockList.size();
+  }
 
-    public void add(StockUpdate newStockUpdate) {
+  public void add(StockUpdate newStockUpdate) {
 //        this.stockList.add(stockUpdate);
 //        notifyItemInserted(stockList.size() - 1);
-        for (StockUpdate stockUpdate : stockList) {
-            if (stockUpdate.getStockSymbol().equals
-                    (newStockUpdate.getStockSymbol())) {
-                if (stockUpdate.getPrice().equals
-                        (newStockUpdate.getPrice())) {
-                    return;
-                }
-                break;
-            }
+
+    for (StockUpdate stockUpdate : stockList) {
+      if (stockUpdate.getStockSymbol().equals
+          (newStockUpdate.getStockSymbol())) {
+        if (stockUpdate.getPrice().equals
+            (newStockUpdate.getPrice())) {
+          return;
         }
-        this.stockList.add(0, newStockUpdate);
-        notifyItemInserted(0);
+        break;
+      }
+    }
+    this.stockList.add(0, newStockUpdate);
+    notifyItemInserted(0);
+  }
+
+  class StockUpdateViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.stock_item_symbol)
+    TextView stockSymbol;
+    @BindView(R.id.stock_item_date)
+    TextView date;
+    @BindView(R.id.stock_item_price)
+    TextView price;
+
+    StockUpdateViewHolder(View v) {
+      super(v);
+      ButterKnife.bind(this, v);
     }
 
-    class StockUpdateViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.stock_item_symbol)
-        TextView stockSymbol;
-        @BindView(R.id.stock_item_date)
-        TextView date;
-        @BindView(R.id.stock_item_price)
-        TextView price;
+    public void setStockSymbol(StockUpdate stockUpdate) {
 
-        StockUpdateViewHolder(View v) {
-            super(v);
-            ButterKnife.bind(this, v);
-        }
-
-        public void setStockSymbol(StockUpdate stockUpdate) {
-
-            this.stockSymbol.setText(stockUpdate.getStockSymbol());
-            this.date.setText(stockUpdate.getDateFormat());
-            this.price.setText(stockUpdate.getFormatPrice());
-        }
+      this.stockSymbol.setText(stockUpdate.getStockSymbol());
+      this.date.setText(stockUpdate.getDateFormat());
+      this.price.setText(stockUpdate.getFormatPrice());
     }
+  }
 }

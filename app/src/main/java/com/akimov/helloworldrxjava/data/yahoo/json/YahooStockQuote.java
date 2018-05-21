@@ -24,10 +24,6 @@ public class YahooStockQuote {
         return symbol;
     }
 
-    public String getName() {
-        return shortName;
-    }
-
     public String getShortName() {
         return shortName;
     }

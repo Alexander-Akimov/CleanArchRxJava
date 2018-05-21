@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HelloWorldRxJava</string>
     <string name="google">GOOGLE</string>
+    <string name="common_error">Unexpected error was occurred</string>
 </resources>
