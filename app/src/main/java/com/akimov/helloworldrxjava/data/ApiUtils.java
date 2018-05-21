@@ -11,7 +11,7 @@ public class ApiUtils {
     }
 
 
-    public static final String BASE_URL = "https://query.yahooapis.com/v1/public/";
+    public static final String BASE_URL = "https://query1.finance.yahoo.com/v7/finance/";
 
 
 }

@@ -40,9 +40,21 @@ public class StockDataAdapter extends RecyclerView.Adapter<StockDataAdapter.Stoc
         return stockList.size();
     }
 
-    public void add(StockUpdate stockUpdate) {
-        this.stockList.add(stockUpdate);
-        notifyItemInserted(stockList.size() - 1);
+    public void add(StockUpdate newStockUpdate) {
+//        this.stockList.add(stockUpdate);
+//        notifyItemInserted(stockList.size() - 1);
+        for (StockUpdate stockUpdate : stockList) {
+            if (stockUpdate.getStockSymbol().equals
+                    (newStockUpdate.getStockSymbol())) {
+                if (stockUpdate.getPrice().equals
+                        (newStockUpdate.getPrice())) {
+                    return;
+                }
+                break;
+            }
+        }
+        this.stockList.add(0, newStockUpdate);
+        notifyItemInserted(0);
     }
 
     class StockUpdateViewHolder extends RecyclerView.ViewHolder {

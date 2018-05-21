@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 
 import com.akimov.helloworldrxjava.R;
+import com.akimov.helloworldrxjava.data.RetrofitYahooServiceFactory;
+import com.akimov.helloworldrxjava.data.YahooService;
 import com.akimov.helloworldrxjava.presentation.model.StockUpdate;
 
 import java.util.Date;
@@ -93,7 +95,26 @@ public class MainActivity extends AppCompatActivity {
             observable.onNext(i);
         }*/
 
+        YahooService yahooService = new RetrofitYahooServiceFactory().create();
 
+        String symbols = "YHOO,AAPL,GOOG,MSFT";
+
+        Observable.interval(0, 5, TimeUnit.SECONDS)
+                .flatMap(i -> yahooService.yqlQuery(symbols)
+                        .toObservable())
+                //yahooService.yqlQuery(symbols) //returns Single<YahooStockResult>
+                .subscribeOn(Schedulers.io()) // do in the background thread
+//                .doOnNext(e -> Log.d(TAG, "on-next:" +
+//                        Thread.currentThread().getName() + ":" + e))
+                //      .toObservable()
+                .map(r -> r.getQuery().getResults()) // transform Observable<YahooStockResult> into Observable<List<YahooStockQuote>>
+                .flatMap(Observable::fromIterable)
+                .map(StockUpdate::create) //convert YahooStockQuote into StockUpdate
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(stockUpdate -> {
+                    Log.d(TAG, "New update " + stockUpdate.getStockSymbol());
+                    stockDataAdapter.add(stockUpdate);
+                });
     }
 
     private void log(Throwable throwable) {
