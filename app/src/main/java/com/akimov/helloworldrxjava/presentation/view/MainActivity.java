@@ -9,20 +9,27 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.akimov.helloworldrxjava.QuotesApplication;
 import com.akimov.helloworldrxjava.R;
+import com.akimov.helloworldrxjava.di.quotes.DaggerQuotesComponent;
+import com.akimov.helloworldrxjava.di.quotes.QuotesComponent;
 import com.akimov.helloworldrxjava.presentation.model.StockUpdate;
 import com.akimov.helloworldrxjava.presentation.presenter.IQuotesPresenter;
 import com.akimov.helloworldrxjava.presentation.presenter.QuotesPresenter;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements IQuotesListView {
+public class MainActivity extends BaseActivity implements IQuotesListView {
 
-
-  IQuotesPresenter iQuotesListPresenter; //TODO: to be injected
-  StockDataAdapter stockDataAdapter; //TODO: to be injected
+  @Inject
+  public IQuotesPresenter iQuotesListPresenter; //TODO: to be injected
+  StockDataAdapter stockDataAdapter = new StockDataAdapter(); //TODO: to be injected
 
   @BindView(R.id.quotes_layout)
   ConstraintLayout constraintLayout;
@@ -34,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements IQuotesListView {
   RecyclerView recyclerView;
   private Unbinder unbinder;
 
+  private QuotesComponent quotesComponent;
+
+
   @SuppressLint("CheckResult")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +52,11 @@ public class MainActivity extends AppCompatActivity implements IQuotesListView {
 
     unbinder = ButterKnife.bind(this);
 
+    initInjector();
+    quotesComponent.inject(this);
+
     setupRecyclerView();
 
-    iQuotesListPresenter = new QuotesPresenter();
     iQuotesListPresenter.bindView(this);
     String symbols = "YHOO,AAPL,GOOG,MSFT";
     iQuotesListPresenter.loadQuotesList(symbols);
@@ -58,16 +70,24 @@ public class MainActivity extends AppCompatActivity implements IQuotesListView {
   }
 
   private void setupRecyclerView() {
-    stockDataAdapter = new StockDataAdapter();
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(stockDataAdapter);
     recyclerView.setHasFixedSize(true);
   }
 
   @Override
-  public void renderQuotesList() {
+  public void renderQuotesList(List<StockUpdate> stockUpdateList) {
 
+    stockDataAdapter.setData(stockUpdateList);
   }
+
+  private void initInjector() {
+    quotesComponent = DaggerQuotesComponent.builder()
+        .appComponent(getApplicationComponent())
+        .activityModule(getActivityModule())
+        .build();
+  }
+
 
   @Override
   public void setHeader(String header) {
@@ -83,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements IQuotesListView {
   @Override
   public void renderQuote(StockUpdate stockUpdate) {
     stockDataAdapter.add(stockUpdate);
+    recyclerView.smoothScrollToPosition(0);
   }
 }
 

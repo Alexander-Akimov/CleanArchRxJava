@@ -1,6 +1,6 @@
-package com.akimov.helloworldrxjava.data;
+package com.akimov.helloworldrxjava.data.network;
 
-import com.akimov.helloworldrxjava.data.yahoo.json.YahooStockResult;
+import com.akimov.helloworldrxjava.data.network.yahoo.json.YahooStockResult;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

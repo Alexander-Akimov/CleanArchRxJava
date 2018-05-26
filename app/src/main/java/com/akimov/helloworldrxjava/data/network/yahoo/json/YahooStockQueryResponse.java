@@ -1,4 +1,4 @@
-package com.akimov.helloworldrxjava.data.yahoo.json;
+package com.akimov.helloworldrxjava.data.network.yahoo.json;
 
 
 import java.util.List;

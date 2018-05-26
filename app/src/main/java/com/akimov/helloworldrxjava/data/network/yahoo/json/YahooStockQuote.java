@@ -1,6 +1,4 @@
-package com.akimov.helloworldrxjava.data.yahoo.json;
-
-import com.google.gson.annotations.SerializedName;
+package com.akimov.helloworldrxjava.data.network.yahoo.json;
 
 import java.math.BigDecimal;
 
