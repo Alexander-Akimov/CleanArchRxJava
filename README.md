@@ -6,5 +6,5 @@ Demo Android приложение для получения обновлений
     Business(Domain) слой: Interactor
     Data слой:  Repository
 - В качестве DI фреймворка используется Dagger2
-- Для получения данных через REST API вызовы используется Retrofit2
+- Для получения данных через REST API вызовы используется Retrofit2 в связке с RXjava(com.squareup.retrofit2:adapter-rxjava2)
 - StorIO API для работы с SQLite
