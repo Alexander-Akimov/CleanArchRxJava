@@ -1,4 +1,4 @@
-package com.akimov.helloworldrxjava.data.yahoo.json;
+package com.akimov.helloworldrxjava.data.network.yahoo.json;
 
 public class YahooStockResult {
     private YahooStockQueryResponse quoteResponse;

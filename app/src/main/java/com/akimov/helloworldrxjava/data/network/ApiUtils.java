@@ -1,4 +1,4 @@
-package com.akimov.helloworldrxjava.data;
+package com.akimov.helloworldrxjava.data.network;
 
 public class ApiUtils {
     private static final ApiUtils ourInstance = new ApiUtils();
