@@ -1,7 +1,7 @@
 # CleanArchRxJava
 Demo Android приложение для получения обновлений и просмотра катировок акций https://finance.yahoo.com/. 
 
-- Проект построен на основе Clean Architecture: 
+- Проект построен на основе Clean Architecture:  
     Presentation слой MVP: Viewer + Presenter
     Business(Domain) слой: Interactor
     Data слой:  Repository
