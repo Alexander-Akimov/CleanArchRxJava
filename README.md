@@ -3,11 +3,11 @@ Demo Android приложение для получения обновлений
 
 - Проект построен на основе Clean Architecture:
 
-Presentation слой MVP: Viewer + Presenter
+  --Presentation слой MVP: Viewer + Presenter
 
-Business(Domain) слой: Interactor
+  --Business(Domain) слой: Interactor
 
-Data слой:  Repository
+  --Data слой:  Repository
 
 - В качестве DI фреймворка используется Dagger2
 - Для получения данных через REST API вызовы используется Retrofit2 в связке с RXjava(com.squareup.retrofit2:adapter-rxjava2)
