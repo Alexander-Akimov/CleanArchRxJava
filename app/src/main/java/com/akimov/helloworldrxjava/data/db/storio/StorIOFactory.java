@@ -25,8 +25,9 @@ public class StorIOFactory {
         .sqliteOpenHelper(new StorIODBHelper(context))
         .addTypeMapping(StockUpdate.class, SQLiteTypeMapping.<StockUpdate>builder()
             .putResolver(new StockUpdatePutResolver())
-            .getResolver(createGetResolver())
-            .deleteResolver(createDeleteResolver()).build())
+            .getResolver(new StockUpdateGetResolver())
+            .deleteResolver(createDeleteResolver())
+            .build())
         .build();
     return INSTANCE;
   }
@@ -42,13 +43,7 @@ public class StorIOFactory {
     };
   }
 
-  private static GetResolver<StockUpdate> createGetResolver() {
-    return new DefaultGetResolver<StockUpdate>() {
-      @NonNull
-      @Override
-      public StockUpdate mapFromCursor(@NonNull StorIOSQLite storIOSQLite, @NonNull Cursor cursor) {
-        return null;
-      }
-    };
-  }
+
+
+
 }

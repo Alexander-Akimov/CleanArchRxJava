@@ -1,6 +1,6 @@
 package com.akimov.helloworldrxjava.presentation.model;
 
-import com.akimov.helloworldrxjava.data.network.yahoo.json.YahooStockQuote;
+import com.akimov.helloworldrxjava.data.models.yahoojson.YahooStockQuote;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

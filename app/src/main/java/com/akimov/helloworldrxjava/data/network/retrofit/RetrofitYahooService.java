@@ -1,12 +1,12 @@
-package com.akimov.helloworldrxjava.data.network;
+package com.akimov.helloworldrxjava.data.network.retrofit;
 
-import com.akimov.helloworldrxjava.data.network.yahoo.json.YahooStockResult;
+import com.akimov.helloworldrxjava.data.models.yahoojson.YahooStockResult;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface YahooService {
+public interface RetrofitYahooService {
 
 //    @GET("yql?format=json")
 //    Single<YahooStockResult> yqlQuery(

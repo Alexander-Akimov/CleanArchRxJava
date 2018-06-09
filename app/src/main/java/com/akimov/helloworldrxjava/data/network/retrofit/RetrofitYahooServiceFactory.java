@@ -1,4 +1,6 @@
-package com.akimov.helloworldrxjava.data.network;
+package com.akimov.helloworldrxjava.data.network.retrofit;
+
+import com.akimov.helloworldrxjava.data.network.ApiUtils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,8 +22,8 @@ public class RetrofitYahooServiceFactory {
       .baseUrl(ApiUtils.BASE_URL)
       .build();
 
-  public YahooService create() {
-    return retrofit.create(YahooService.class);
+  public RetrofitYahooService create() {
+    return retrofit.create(RetrofitYahooService.class);
   }
 
 }

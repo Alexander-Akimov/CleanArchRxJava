@@ -126,4 +126,5 @@ public class QuotesInteractor implements IQuotesInteractor {
     Log.e(TAG, "Error", throwable);
 
   }
+
 }

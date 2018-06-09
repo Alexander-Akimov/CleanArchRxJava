@@ -10,7 +10,7 @@ public class ApiUtils {
     private ApiUtils() {
     }
 
-
+    //todo: вынести в константы или SharedPreferences
     public static final String BASE_URL = "https://query1.finance.yahoo.com/v7/finance/";
 
 
