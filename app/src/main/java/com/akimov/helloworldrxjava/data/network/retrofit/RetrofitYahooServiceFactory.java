@@ -19,7 +19,7 @@ public class RetrofitYahooServiceFactory {
       .client(client)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(GsonConverterFactory.create())
-      .baseUrl(ApiUtils.BASE_URL)
+      .baseUrl(ApiUtils.LOCAL_BASE_URL)//LOCAL_BASE_URL
       .build();
 
   public RetrofitYahooService create() {

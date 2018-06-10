@@ -1,5 +1,7 @@
 package com.akimov.helloworldrxjava.presentation.model;
 
+import android.util.Log;
+
 import com.akimov.helloworldrxjava.data.models.yahoojson.YahooStockQuote;
 
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 public class StockUpdate implements Serializable {
   private Integer id;
@@ -53,6 +56,13 @@ public class StockUpdate implements Serializable {
   }
 
   public String getFormatPrice() {
+  /*  try {
+      PRICE_FORMAT.format(this.price);
+    } catch (Exception e) {
+      Log.d("Stock", e.getMessage());
+    }*/
+
     return PRICE_FORMAT.format(this.price);
+
   }
 }

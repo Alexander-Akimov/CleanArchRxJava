@@ -8,13 +8,20 @@ import retrofit2.http.Query;
 
 public interface RetrofitYahooService {
 
-//    @GET("yql?format=json")
+  //    @GET("yql?format=json")
 //    Single<YahooStockResult> yqlQuery(
 //            @Query("q") String query,
 //            @Query("env") String env
 //    );
-    @GET("quote")
-    Single<YahooStockResult> yqlQuery(
-            @Query("symbols") String symbols
-    );
+  @GET("quote")
+  Single<YahooStockResult> yqlQuery(
+      @Query("symbols") String symbols
+  );
+
+  @GET("PatricMelrose/myDemoRepo/CleanArch/app/src/main/java/com/akimov/helloworldrxjava/data/response.json")
+  Single<YahooStockResult> yqlQueryTemp();
+
+  @GET("response.json")
+  Single<YahooStockResult> yqlQueryLocal();
+
 }

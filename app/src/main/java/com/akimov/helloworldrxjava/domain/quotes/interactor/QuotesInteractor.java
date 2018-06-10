@@ -2,6 +2,7 @@ package com.akimov.helloworldrxjava.domain.quotes.interactor;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.akimov.helloworldrxjava.domain.quotes.repository.IQuotesRepository;
 import com.akimov.helloworldrxjava.presentation.model.StockUpdate;
@@ -56,10 +57,10 @@ public class QuotesInteractor implements IQuotesInteractor {
             .filter(su -> !QuotesInteractor.this.contains(su))
             .toList()
             .toObservable()
-        )
+        )/**/
         .doOnNext(list -> {
           QuotesInteractor.this.addItems(list);
-         // iQuotesRepository.saveStockUpdateList(list);
+          // iQuotesRepository.saveStockUpdateList(list);
         })
         .observeOn(AndroidSchedulers.mainThread());
 

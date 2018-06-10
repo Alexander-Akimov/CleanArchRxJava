@@ -42,8 +42,11 @@ public class StockDataAdapter extends RecyclerView.Adapter<StockDataAdapter.Stoc
 
   public void setData(List<StockUpdate> stockUpdateList) {
 
-    stockList.addAll(stockUpdateList);
+    stockList.addAll(0, stockUpdateList);
+    //notifyItemRangeChanged(0, stockUpdateList.size());
+    //notifyItemRangeInserted(0, stockUpdateList.size());
     notifyDataSetChanged();
+
   }
 
   public void add(StockUpdate newStockUpdate) {

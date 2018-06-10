@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.akimov.helloworldrxjava.QuotesApplication;
@@ -67,18 +68,21 @@ public class MainActivity extends BaseActivity implements IQuotesListView {
     super.onDestroy();
     unbinder.unbind();
     this.iQuotesListPresenter.unbindView();
+    //Log.d("MainActivity.Destroy","onDestroy");
   }
+
 
   private void setupRecyclerView() {
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(stockDataAdapter);
-    recyclerView.setHasFixedSize(true);
+    recyclerView.setHasFixedSize(false);
   }
 
   @Override
   public void renderQuotesList(List<StockUpdate> stockUpdateList) {
 
     stockDataAdapter.setData(stockUpdateList);
+
   }
 
   private void initInjector() {
@@ -95,8 +99,8 @@ public class MainActivity extends BaseActivity implements IQuotesListView {
   }
 
   @Override
-  public void showError() {
-    Snackbar snackbar = Snackbar.make(constraintLayout, getString(R.string.common_error), Snackbar.LENGTH_LONG);
+  public void showError(String message) {
+    Snackbar snackbar = Snackbar.make(constraintLayout, message, Snackbar.LENGTH_LONG);
     snackbar.show();
   }
 

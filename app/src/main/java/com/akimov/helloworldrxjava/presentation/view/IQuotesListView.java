@@ -12,5 +12,5 @@ public interface IQuotesListView {
 
   void setHeader(String header);
 
-  void showError();
+  void showError(String message);
 }

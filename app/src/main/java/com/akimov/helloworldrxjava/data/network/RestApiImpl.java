@@ -4,6 +4,7 @@ import com.akimov.helloworldrxjava.data.network.retrofit.RetrofitYahooService;
 import com.akimov.helloworldrxjava.data.network.retrofit.RetrofitYahooServiceFactory;
 import com.akimov.helloworldrxjava.presentation.model.StockUpdate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -18,7 +19,11 @@ public class RestApiImpl implements IRestApi {
   public Observable<List<StockUpdate>> getQuotes(String symbols) {
     RetrofitYahooService yahooService = new RetrofitYahooServiceFactory().create();
 
-    return yahooService.yqlQuery(symbols)
+    /*.yqlQuery(symbols)
+     .yqlQueryTemp(symbols)
+     .yqlQueryLocal()
+     */
+    return yahooService.yqlQueryLocal()
         .subscribeOn(Schedulers.io())
         .map(r -> r.getQuery().getResults())// transform Observable<YahooStockResult> into Observable<List<YahooStockQuote>>
         .flatMap(list -> Observable.fromIterable(list)

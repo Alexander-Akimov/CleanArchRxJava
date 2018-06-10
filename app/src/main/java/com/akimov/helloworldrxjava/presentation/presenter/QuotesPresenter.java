@@ -85,7 +85,8 @@ public class QuotesPresenter implements IQuotesPresenter {
   }
 
   private void handleErrorLoadQuotes(Throwable throwable) {
-    iQuotesListView.showError();
+
+    iQuotesListView.showError(throwable.getMessage());
   }
 
   private void handleSuccessLoadQuotes(List<StockUpdate> stockUpdateList) {
@@ -93,6 +94,7 @@ public class QuotesPresenter implements IQuotesPresenter {
     //iQuotesListView.renderQuote(stockUpdate);
 
     iQuotesListView.renderQuotesList(stockUpdateList);
+
   }
 
   private void addDisposable(Disposable disposable) {
