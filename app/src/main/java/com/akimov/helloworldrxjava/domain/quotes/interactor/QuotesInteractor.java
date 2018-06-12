@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.akimov.helloworldrxjava.data.network.retrofit.RetrofitYahooService;
+import com.akimov.helloworldrxjava.data.network.retrofit.RetrofitYahooServiceFactory;
 import com.akimov.helloworldrxjava.domain.quotes.repository.IQuotesRepository;
 import com.akimov.helloworldrxjava.presentation.model.StockUpdate;
 
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class QuotesInteractor implements IQuotesInteractor {
 
@@ -23,7 +26,6 @@ public class QuotesInteractor implements IQuotesInteractor {
   private final IQuotesRepository iQuotesRepository;
 
   private final List<StockUpdate> tempStockUpdateList = new ArrayList<>();
-
 
   @Inject
   public QuotesInteractor(IQuotesRepository quotesRepository) {
@@ -50,20 +52,24 @@ public class QuotesInteractor implements IQuotesInteractor {
   @SuppressLint("CheckResult")
   @Override
   public Observable<List<StockUpdate>> getQuotesData(String symbols) {
-
+    /**/
     return Observable.interval(0, 5, TimeUnit.SECONDS)
         .flatMap(i -> iQuotesRepository.getQuotes(symbols))
-        .flatMap(list -> Observable.fromIterable(list)
+        .observeOn(AndroidSchedulers.mainThread());
+
+
+      /*  .flatMap(list -> Observable.fromIterable(list)
             .filter(su -> !QuotesInteractor.this.contains(su))
             .toList()
             .toObservable()
-        )/**/
+        )
         .doOnNext(list -> {
           QuotesInteractor.this.addItems(list);
           // iQuotesRepository.saveStockUpdateList(list);
-        })
+        })*/
+        /*return  iQuotesRepository.getQuotes(symbols)
         .observeOn(AndroidSchedulers.mainThread());
-
+        */
       /*    .doOnNext(list -> {
           stockUpdateList.clear();
           // stockUpdateList
@@ -87,31 +93,7 @@ public class QuotesInteractor implements IQuotesInteractor {
                 .subscribe(stockDataAdapter::add);
 
 
-        Observable.just("First item", "Second item")
-                .subscribeOn(Schedulers.io())
-                .doOnNext(e -> Log.d(TAG, "on-next:" + Thread.currentThread().getName() + ":" + e))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(e -> Log.d(TAG, "subscribe:" + Thread.currentThread().getName() + ":" + e));*/
-
-
-      /*  PublishSubject<Integer> observable = PublishSubject.create();
-
-//       observable
-//                .observeOn(Schedulers.computation())
-//                .subscribe(v -> Log.d(TAG, "subscribe:" + v.toString()), this::log);
-//
-
-       observable.toFlowable(BackpressureStrategy.MISSING)
-               //.onBackpressureDrop()
-               //.sample(10, TimeUnit.MILLISECONDS)
-               .onBackpressureBuffer()
-               .buffer(50)
-               .observeOn(Schedulers.computation())
-               .subscribe(v -> Log.d(TAG, "subscribe:" + v.toString()), this::log);
-
-        for (int i = 0; i < 1000000; i++) {
-            observable.onNext(i);
-        }*/
+    */
   }
 
   private void saveStockUpdate(StockUpdate stockUpdate) {
@@ -125,7 +107,6 @@ public class QuotesInteractor implements IQuotesInteractor {
 
   private void log(Throwable throwable) {
     Log.e(TAG, "Error", throwable);
-
   }
 
 }

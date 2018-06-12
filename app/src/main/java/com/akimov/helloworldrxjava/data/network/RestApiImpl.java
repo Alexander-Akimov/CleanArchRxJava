@@ -23,7 +23,7 @@ public class RestApiImpl implements IRestApi {
      .yqlQueryTemp(symbols)
      .yqlQueryLocal()
      */
-    return yahooService.yqlQueryLocal()
+    return yahooService.yqlQuery(symbols)
         .subscribeOn(Schedulers.io())
         .map(r -> r.getQuery().getResults())// transform Observable<YahooStockResult> into Observable<List<YahooStockQuote>>
         .flatMap(list -> Observable.fromIterable(list)

@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class QuotesPresenter implements IQuotesPresenter {
 
-  private final IQuotesInteractor quotesInteractor; //TODO: to be injected
+  private final IQuotesInteractor quotesInteractor;
 
   private IQuotesListView iQuotesListView;
 
@@ -46,38 +46,14 @@ public class QuotesPresenter implements IQuotesPresenter {
     iQuotesListView = null;
   }
 
- /* public static int importantLongTask(Integer i) {
-    try {
-      long minMillis = 10L;
-      long maxMillis = 1000L;
-      log("Working on ", i.toString());
-      final long waitingTime = (long) (minMillis + (Math.random() *
-          maxMillis - minMillis));
-      Thread.sleep(waitingTime);
-      return i;
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-   static void log(String title, String message) {
-    Log.d(TAG, title + ":" + Thread.currentThread().getName() + ":" + message);
-  }*/
 
   @SuppressLint("CheckResult")
   @Override
   public void loadQuotesList(String symbols) {
+    iQuotesListView.showProgress();
     Observable.just("Hello! Please use this app responsibly!")
         .subscribe(s -> iQuotesListView.setHeader(s));
 
-   /* Observable.range(1, 100)
-        .flatMap(i -> Observable.just(i)
-            .subscribeOn(Schedulers.io())
-            .map(QuotesPresenter::importantLongTask)
-        )
-        .map(Object::toString)
-        .subscribe(e -> log("subscribe", e));
-*/
 
     Disposable getQuotesSubscription = quotesInteractor.getQuotesData(symbols)
         .subscribe(this::handleSuccessLoadQuotes, this::handleErrorLoadQuotes);
@@ -85,15 +61,17 @@ public class QuotesPresenter implements IQuotesPresenter {
   }
 
   private void handleErrorLoadQuotes(Throwable throwable) {
-
+    iQuotesListView.hideProgress();
     iQuotesListView.showError(throwable.getMessage());
   }
 
   private void handleSuccessLoadQuotes(List<StockUpdate> stockUpdateList) {
-   // Log.d(TAG, "New update " + stockUpdate.getStockSymbol());
+
+    // Log.d(TAG, "New update " + stockUpdate.getStockSymbol());
     //iQuotesListView.renderQuote(stockUpdate);
 
     iQuotesListView.renderQuotesList(stockUpdateList);
+    iQuotesListView.hideProgress();
 
   }
 

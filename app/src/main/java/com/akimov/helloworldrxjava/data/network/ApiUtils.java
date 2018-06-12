@@ -12,8 +12,7 @@ public class ApiUtils {
 
     //todo: вынести в константы или SharedPreferences
     public static final String BASE_URL = "https://query1.finance.yahoo.com/v7/finance/";
-    public static final String TEMP_BASE_URL = "https://raw.githubusercontent.com/";
-    public static final String LOCAL_BASE_URL = "http://192.168.1.103:5000/";
+    public static final String LOCAL_BASE_URL = "http://192.168.1.101:5000/";
 
 
 }

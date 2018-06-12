@@ -12,14 +12,14 @@ public class RetrofitYahooServiceFactory {
 
   HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
       .setLevel(HttpLoggingInterceptor.Level.BODY);
-
+/**/
   OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
   Retrofit retrofit = new Retrofit.Builder()
       .client(client)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(GsonConverterFactory.create())
-      .baseUrl(ApiUtils.LOCAL_BASE_URL)//LOCAL_BASE_URL
+      .baseUrl(ApiUtils.BASE_URL)//LOCAL_BASE_URL
       .build();
 
   public RetrofitYahooService create() {

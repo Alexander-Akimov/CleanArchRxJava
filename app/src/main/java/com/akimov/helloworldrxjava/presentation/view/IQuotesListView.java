@@ -13,4 +13,7 @@ public interface IQuotesListView {
   void setHeader(String header);
 
   void showError(String message);
+
+  void showProgress();
+  void hideProgress();
 }

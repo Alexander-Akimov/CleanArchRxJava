@@ -18,9 +18,6 @@ public interface RetrofitYahooService {
       @Query("symbols") String symbols
   );
 
-  @GET("PatricMelrose/myDemoRepo/CleanArch/app/src/main/java/com/akimov/helloworldrxjava/data/response.json")
-  Single<YahooStockResult> yqlQueryTemp();
-
   @GET("response.json")
   Single<YahooStockResult> yqlQueryLocal();
 

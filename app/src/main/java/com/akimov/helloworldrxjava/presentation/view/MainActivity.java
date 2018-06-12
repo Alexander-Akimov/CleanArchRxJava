@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akimov.helloworldrxjava.QuotesApplication;
@@ -40,9 +42,12 @@ public class MainActivity extends BaseActivity implements IQuotesListView {
 
   @BindView(R.id.stockUpdatesRecyclerView)
   RecyclerView recyclerView;
-  private Unbinder unbinder;
+
+  @BindView(R.id.progressBar)
+  ProgressBar progressBar;
 
   private QuotesComponent quotesComponent;
+  private Unbinder unbinder;
 
 
   @SuppressLint("CheckResult")
@@ -57,9 +62,11 @@ public class MainActivity extends BaseActivity implements IQuotesListView {
     quotesComponent.inject(this);
 
     setupRecyclerView();
+    progressBar.setVisibility(View.INVISIBLE);
 
     iQuotesListPresenter.bindView(this);
-    String symbols = "YHOO,AAPL,GOOG,MSFT";
+    String symbols = "YHOO,AAPL,GOOG,MSFT,FTSE,N225,BTC-USD,JPY=X,GBPUSD=X,VIX,TNX,EURUSD=X,SI=F,GC=F,CL=F,RUT,GSPC,DJI";
+    //String symbols = ",AAPL,GOOG,MSFT";
     iQuotesListPresenter.loadQuotesList(symbols);
   }
 
@@ -102,6 +109,16 @@ public class MainActivity extends BaseActivity implements IQuotesListView {
   public void showError(String message) {
     Snackbar snackbar = Snackbar.make(constraintLayout, message, Snackbar.LENGTH_LONG);
     snackbar.show();
+  }
+
+  @Override
+  public void showProgress() {
+    progressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override
+  public void hideProgress() {
+    progressBar.setVisibility(View.INVISIBLE);
   }
 
   @Override
