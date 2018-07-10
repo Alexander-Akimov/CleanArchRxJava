@@ -7,24 +7,25 @@ import com.akimov.helloworldrxjava.presentation.model.StockUpdate;
 
 import java.util.List;
 
+import io.reactivex.Single;
+
 /**
  * Created by lex on 6/9/18.
  */
-public class DbApiImpl implements IDBApi {
+public class DataBaseSourceImpl implements IDataBaseSource {
 
   private final Context context;
 
-  public DbApiImpl(Context context)
-  {
+  public DataBaseSourceImpl(Context context) {
     this.context = context;
   }
+
   @Override
-  public void insertData(List<StockUpdate> stockUpdateList) {
-    StorIOFactory.get(this.context)
+  public Single insertData(List<StockUpdate> stockUpdateList) {
+    return StorIOFactory.get(this.context)
         .put()
-        .object(stockUpdateList)
+        .objects(stockUpdateList)
         .prepare()
-        .asRxSingle()//executeAsBlocking()
-        .subscribe();
+        .asRxSingle();//executeAsBlocking()
   }
 }

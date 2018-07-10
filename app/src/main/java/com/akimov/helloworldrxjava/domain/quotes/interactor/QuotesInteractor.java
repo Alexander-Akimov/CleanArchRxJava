@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class QuotesInteractor implements IQuotesInteractor {
 
-  private final String TAG = "QuotesInteractor";
+  private final String TAG = QuotesInteractor.class.getSimpleName();
 
   private final IQuotesRepository iQuotesRepository;
 

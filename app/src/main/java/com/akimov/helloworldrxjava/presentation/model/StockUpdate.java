@@ -1,5 +1,6 @@
 package com.akimov.helloworldrxjava.presentation.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.akimov.helloworldrxjava.data.models.yahoojson.YahooStockQuote;
@@ -22,8 +23,14 @@ public class StockUpdate implements Serializable {
 
   public StockUpdate(String stockSymbol, BigDecimal price, Date date) {
     this.stockSymbol = stockSymbol;
-    this.price = price;//new BigDecimal(price);
+    this.price = price;
     this.date = date;
+  }
+
+  public StockUpdate(String stockSymbol, long price, long date) {
+    this.stockSymbol = stockSymbol;
+    this.price = getPrice(price);
+    this.date = getDate(date);
   }
 
   public static StockUpdate create(YahooStockQuote r) {
@@ -64,5 +71,21 @@ public class StockUpdate implements Serializable {
 
     return PRICE_FORMAT.format(this.price);
 
+  }
+
+  public long getPriceLong() {
+    return price.scaleByPowerOfTen(4).longValue();
+  }
+
+  public long getDateLong() {
+    return date.getTime();
+  }
+
+  private BigDecimal getPrice(long priceLong) {
+    return new BigDecimal(priceLong).scaleByPowerOfTen(-4);
+  }
+
+  private Date getDate(long dateLong) {
+    return new Date(dateLong);
   }
 }

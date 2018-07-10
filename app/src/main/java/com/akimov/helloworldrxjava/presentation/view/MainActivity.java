@@ -31,8 +31,10 @@ import butterknife.Unbinder;
 public class MainActivity extends BaseActivity implements IQuotesListView {
 
   @Inject
-  public IQuotesPresenter iQuotesListPresenter; //TODO: to be injected
-  StockDataAdapter stockDataAdapter = new StockDataAdapter(); //TODO: to be injected
+  public IQuotesPresenter iQuotesListPresenter;
+
+  @Inject
+  public StockDataAdapter stockDataAdapter;
 
   @BindView(R.id.quotes_layout)
   ConstraintLayout constraintLayout;
